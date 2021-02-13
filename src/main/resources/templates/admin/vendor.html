@@ -184,10 +184,10 @@
                   <div class="col-12 stretch-card">
                     <div class="card">
                       <div class="card-body">
-                        <p th:text="${message}"/>
+<!--                        <p th:text="${message}"/>-->
                         <h4 class="card-title">Create Vendor</h4>
                         <p class="card-description"> Add a Mobile connection company to vendor list </p>
-                        <form class="forms-sample" th:action="@{/admin/createvendor}" method="post">
+                        <form class="forms-sample" th:action="@{/createvendor}" method="post">
 
                           <div class="form-group row">
                             <label for="exampleInputCompany"  class="col-sm-3 col-form-label">Company</label>
@@ -213,7 +213,8 @@
 
               <div class="col-lg-6 grid-margin stretch-card">
                 <div class="card">
-                  <div class="card-body" th:if="${not #lists.isEmpty(vendors)}">
+                  <div class="card-body">
+<!--                    th:if="${not #lists.isEmpty(vendors)}"-->
                     <h4 class="card-title">Vendors</h4>
                     <p class="card-description"> List of all available vendors <code>Total: 30</code> </p>
                     <table class="table">
@@ -221,15 +222,15 @@
                         <tr>
                           <th>Email</th>
                           <th>Company</th>
-                          <th>Status</th>
+                          <th>Category</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr th:each="vendor : ${vendors}">
-                          <tr th:utext="${vendor}"></tr>
-                          <tr th:utext="${vendor}"></tr>
+                          <td th:text="${vendor.email}"></td>
+                          <td th:text="${vendor.name}"></td>
                           <td>
-                            <label class="badge badge-danger">Pending</label>
+                            <label class="badge badge-danger" th:text="${vendor.category}"></label>
                           </td>
                         </tr>
                       </tbody>

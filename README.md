@@ -1,5 +1,7 @@
 # Spring_Boot_JPA
 
+USEFULL RESOURCES
+https://dev.to/reytech-lesson/form-submitting-with-spring-boot-validation-5clg
 
 NOTE
 
