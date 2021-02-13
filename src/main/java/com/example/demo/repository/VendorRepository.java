@@ -1,4 +1,6 @@
 package com.example.demo.repository;
 
-public class VendorRepository {
+import com.example.demo.model.Vendor;
+
+public class VendorRepository implements CrudRepository<Vendor vendor>{
 }
