@@ -138,7 +138,7 @@
                       <div class="col-lg-3 col-md-6 mt-md-0 mt-4">
                         <div class="d-flex">
                           <div class="wrapper">
-                            <h3 class="mb-0 font-weight-semibold">17</h3>
+                            <h3 class="mb-0 font-weight-semibold"><span th:text="${#lists.size(offers)}"></span></h3>
                             <h5 class="mb-0 font-weight-medium text-primary">Offers</h5>
                             <p class="mb-0 text-muted">54%</p>
                           </div>
@@ -150,9 +150,9 @@
                       <div class="col-lg-3 col-md-6 mt-md-0 mt-4">
                         <div class="d-flex">
                           <div class="wrapper">
-                            <h3 class="mb-0 font-weight-semibold">10</h3>
+                            <h3 class="mb-0 font-weight-semibold"><span th:text="${#lists.size(vendors)}"></span></h3>
                             <h5 class="mb-0 font-weight-medium text-primary">Vendors</h5>
-                            <p class="mb-0 text-muted">76%</p>
+                            <p class="mb-0 text-muted">100%</p>
                           </div>
                           <div class="wrapper my-auto ml-auto ml-lg-4">
                             <canvas height="50" width="100" id="stats-line-graph-3"></canvas>
@@ -184,22 +184,37 @@
                   <div class="col-12 stretch-card">
                     <div class="card">
                       <div class="card-body">
-<!--                        <p th:text="${message}"/>-->
+                        <p th:text="${message}"/>
                         <h4 class="card-title">Create Vendor</h4>
                         <p class="card-description"> Add a Mobile connection company to vendor list </p>
-                        <form class="forms-sample" th:action="@{/createvendor}" method="post">
+                        <form class="forms-sample" th:action="@{/vendor}" th:object="${vendorForm}" method="post">
 
                           <div class="form-group row">
-                            <label for="exampleInputCompany"  class="col-sm-3 col-form-label">Company</label>
+                            <label class="col-sm-3 col-form-label">Company</label>
                             <div class="col-sm-9">
-                              <input type="text" name="company" class="form-control" id="exampleInputCompany" placeholder="Company">
+                              <input type="text" placeholder="Company" th:field="*{name}" name="name"/>
+                              <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                             </div>
                           </div>
 
                           <div class="form-group row">
-                            <label for="exampleInputEmail"  class="col-sm-3 col-form-label">Email</label>
+                            <label class="col-sm-3 col-form-label">Email</label>
                             <div class="col-sm-9">
-                              <input type="email" name="email" class="form-control" id="exampleInputEmail" placeholder="Enter email">
+                              <input type="email" th:field="*{email}" name="email" placeholder="Enter email">
+                              <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Category</label>
+                            <div class="col-sm-9">
+                              <p th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></p>
+                              <select th:field="*{category}" placeholder="Category">
+                                <option value="Telecomm">Telecomm</option>
+                              </select>
+<!--                              <select th:field="*{category}" placeholder="Category">-->
+<!--                                <option th:each="vendor : ${vendors}" th:value="${vendor.id}" th:text="${vendor.name}"></option>-->
+<!--                              </select>-->
                             </div>
                           </div>
 
@@ -216,13 +231,14 @@
                   <div class="card-body">
 <!--                    th:if="${not #lists.isEmpty(vendors)}"-->
                     <h4 class="card-title">Vendors</h4>
-                    <p class="card-description"> List of all available vendors <code>Total: 30</code> </p>
+                    <p class="card-description"> List of all available vendors <code>Total: <span th:text="${#lists.size(vendors)}"></span></code> </p>
                     <table class="table">
                       <thead>
                         <tr>
                           <th>Email</th>
                           <th>Company</th>
                           <th>Category</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -231,6 +247,13 @@
                           <td th:text="${vendor.name}"></td>
                           <td>
                             <label class="badge badge-danger" th:text="${vendor.category}"></label>
+                          </td>
+                          <td>
+                            <a th:href="@{'/deletevendor/'+${vendor.id}}">Delete</a>
+<!--                            <form action="#" th:action="@{/deletevendor}" th:object="${vendorForm}" method="post">-->
+<!--                              <input th:value="${vendor.id}" th:field="*{id}" type="hidden"/>-->
+<!--                              <button type="submit" class="badge badge-danger">Delete</button>-->
+<!--                            </form>-->
                           </td>
                         </tr>
                       </tbody>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VendorService {
@@ -24,7 +25,25 @@ public class VendorService {
         return result;
     }
 
-    public Object setVendors(VendorForm vendorForm) {
+    public String setVendor(VendorForm vendorForm) {
+
+        if(vendorRepository.existsByEmail(vendorForm.getEmail()))
+            return "Vendor with this email already exist";
+
+        if(vendorRepository.existsByName(vendorForm.getName()))
+            return "Vendor name alredy exist";
+
+        vendorRepository.save(new Vendor(vendorForm.getName(), vendorForm.getEmail(), vendorForm.getCategory()));
+        return "Went through";
+    }
+
+    public String deleteVendor(Long id) {
+
+        if(vendorRepository.existsById(id)){
+            vendorRepository.deleteById(id);
+            return "Vendor Deleted!";
+        }
+        return "Vendor is not found";
 
     }
 }

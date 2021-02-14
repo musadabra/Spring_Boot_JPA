@@ -1,26 +1,37 @@
 package com.example.demo.model;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name= "vendor")
 public class Vendor {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String name;
     private String email;
     private String category;
 
+    public Vendor(String name, String email, String category) {
+        this.name = name;
+        this.email = email;
+        this.category = category;
+    }
+
     public Vendor(){}
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    @Id
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

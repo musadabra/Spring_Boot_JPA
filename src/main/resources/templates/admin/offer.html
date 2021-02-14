@@ -131,16 +131,14 @@
                       <div class="card-body">
                         <h4 class="card-title">Create Offer</h4>
                         <p class="card-description"> Add a Mobile connection company to vendor list </p>
-                        <form class="forms-sample">
+                        <form th:action="@{/offer}" th:object="${offerForm}" method="post" class="forms-sample">
 
                           <div class="form-group row">
                             <label for="exampleInputname2" name="vendorname" class="col-sm-3 col-form-label">Vendor</label>
                             <div class="col-sm-9">
-                              <select class="form-control" id="exampleInputname" name="vendor">
-                                  <option selected>Choose Company</option>
-                                  <option value="">AIRTEL</option>
-                                  <option value="">GLO</option>
-                                  <option value="">ZAIN</option>
+                              <select th:field="*{vendor_id}" class="form-control" id="exampleInputname2">
+                                  <option value="" selected>Choose Vendor</option>
+                                  <option th:each="vendor : ${vendors}" th:value="${vendor.id}"><spa th:text="${vendor.name}"></spa></option>
                               </select>
                             </div>
                           </div>
@@ -148,26 +146,25 @@
                           <div class="form-group row">
                             <label for="exampleInputTitle" class="col-sm-3 col-form-label">Title</label>
                             <div class="col-sm-9">
-                              <input type="text" name="title" class="form-control" id="exampleInputTitle" placeholder="Offer Title">
+                              <input th:field="*{title}" type="text" class="form-control" id="exampleInputTitle" placeholder="Offer Title">
                             </div>
                           </div>
 
                           <div class="form-group row">
                             <label for="exampleInputDescription" class="col-sm-3 col-form-label">Description</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" id="exampleInputDescription" name="description" placeholder="Offer Description"></textarea>
+                                <textarea th:field="*{description}" class="form-control" id="exampleInputDescription"  placeholder="Offer Description"></textarea>
                             </div>
                           </div>
 
                           <div class="form-group row">
                             <label for="exampleInputAmount" class="col-sm-3 col-form-label">Amount</label>
                             <div class="col-sm-9">
-                              <input type="text" name="amount" class="form-control" id="exampleInputAmount" placeholder="Amount">
+                              <input th:field="*{amount}" type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">
                             </div>
                           </div>
 
                           <button type="submit" class="btn btn-success mr-2">Create</button>
-
                         </form>
                       </div>
                     </div>
@@ -183,18 +180,20 @@
                     <table class="table">
                       <thead>
                         <tr>
-                          <th>Email</th>
-                          <th>Company</th>
+                          <th>Title</th>
+                          <th>Amount</th>
+                          <th>Description</th>
                           <th>Status</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr style="background: #f3f3f3;">
-                            <td></td>
-                            <td></td>
-                            <td> <h4>MTN</h4> </td>
+
+                        <tr th:each="offer : ${offers}" style="background: #f3f3f3;">
+                            <td th:text="${offer.title}"></td>
+                            <td th:text="${offer.amount}"></td>
+                            <td th:text="${offer.description}"></td>
+                            <td><td> <h4 th:text="${offer.vendor.name}"></h4> </td></td>
                         </tr>
-                        
                         <tr>
                           <td>Jacob</td>
                           <td>53275531</td>
@@ -212,7 +211,8 @@
                         <tr style="background: #f3f3f3;">
                             <td></td>
                             <td></td>
-                            <td> <h4>AIRTEL</h4> </td>
+                            <td>
+                              <h4>AIRTEL</h4> </td>
                         </tr>
                         <tr>
                           <td>John</td>
