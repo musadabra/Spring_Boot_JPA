@@ -3,6 +3,9 @@
 USEFULL RESOURCES
 https://dev.to/reytech-lesson/form-submitting-with-spring-boot-validation-5clg
 
+MANY-TO-MANY Relation
+https://www.baeldung.com/jpa-many-to-many
+
 NOTE
 
 From a programming perspective, the ORM layer is an adapter layer: it adapts the language of object graphs to the language of SQL and relational tables. The ORM layer allows object-oriented developers to build software that persists data without ever leaving the object-oriented paradigm.
